@@ -57,8 +57,8 @@ class DataReader(object):
         if not self.pipe:
             try:
                 self.monout = open(filename, 'rb')
-            except Exception:
-                logger.error("Can't open source file %s: %s", filename, exc_info=True)
+            except Exception as e:
+                logger.error(f"Can't open source file {filename}: {e}")
                 self.broken = True
         else:
             self.monout = filename
