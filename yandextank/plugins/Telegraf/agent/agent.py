@@ -28,7 +28,7 @@ def ignore_handler(sig, frame):
 
 
 def set_sig_handler():
-    uncatchable = ['SIG_DFL', 'SIGSTOP', 'SIGKILL']
+    uncatchable = ['SIG_DFL', 'SIGSTOP', 'SIGKILL', 'SIG_BLOCK']
     ignore = ['SIGCHLD', 'SIGCLD']
     all_sig = [s for s in dir(signal) if s.startswith("SIG")]
     for sig_name in ignore:
