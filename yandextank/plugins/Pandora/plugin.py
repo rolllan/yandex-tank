@@ -65,7 +65,7 @@ class Plugin(GeneratorPlugin):
         self.resources = self.get_option("resources")
 
         # if we use custom pandora binary, we can download it and make it executable
-        self.pandora_cmd = self.get_resource(self.get_option("pandora_cmd"), "./pandora", permissions=0o755)
+        self.pandora_cmd = self.get_resource(self.get_option("pandora_cmd"), "./pandora", permissions=755)
 
         # download all resources from self.get_options("resources")
         if len(self.resources) > 0:
@@ -197,7 +197,7 @@ class Plugin(GeneratorPlugin):
             self.stats_reader = PandoraStatsReader(self.expvar_enabled, self.expvar_port)
         return self.stats_reader
 
-    def get_resource(self, resource, dst, permissions=0o644):
+    def get_resource(self, resource, dst, permissions=644):
         opener = resource_manager.get_opener(resource)
         if isinstance(opener, HttpOpener):
             tmp_path = opener.download_file(True, try_ungzip=True)

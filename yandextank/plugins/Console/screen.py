@@ -406,7 +406,7 @@ class Screen(object):
             self.log.debug("There are %d info widgets" % len(self.info_widgets))
             for index, widget in sorted(
                     self.info_widgets.items(),
-                    key=lambda item: (item[1].get_index(), item[0])):
+                    key=lambda item: tuple(item[1].get_index(), item[0])):
                 self.log.debug("Rendering info widget #%s: %s", index, widget)
                 widget_out = widget.render(self).strip()
                 if widget_out:
@@ -1015,7 +1015,7 @@ class CasesBlock(AbstractBlock):
 
     def __reorder_cases(self):
         sorted_cases = sorted(self.cumulative_cases.items(),
-                              key=lambda item: (-1 * item[1][self.cases_sort_by], str(item[0])))
+                              key=lambda item: tuple(-1 * item[1][self.cases_sort_by], str(item[0])))
         new_order = [case for (case, data) in sorted_cases]
         now = time.time()
         if now - self.reorder_delay > self.last_reordered:
