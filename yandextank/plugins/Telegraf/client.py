@@ -308,6 +308,7 @@ class SSHClient(object):
 
     def start(self):
         """Start remote agent"""
+        
         logger.info('Starting agent: %s', self.host)
         command = "{python} {agent_path} --telegraf {telegraf_path} --host {host} {kill_old}".format(
             python=self.python,
@@ -317,7 +318,7 @@ class SSHClient(object):
             telegraf_path=self.path['TELEGRAF_REMOTE_PATH'],
             host=self.host,
             kill_old=self.kill_old)
-        logger.debug('Command to start agent: %s', command)
+        logger.info('Command to start agent: %s', command)
         self.session = self.ssh.async_session(command)
         self.reader_thread = threading.Thread(target=self.read_buffer)
         self.reader_thread.setDaemon(True)
