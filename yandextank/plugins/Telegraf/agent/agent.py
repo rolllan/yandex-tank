@@ -29,7 +29,7 @@ def ignore_handler(sig, frame):
 
 def set_sig_handler():
     uncatchable = ['SIG_DFL', 'SIGSTOP', 'SIGKILL']
-    ignore = ['SIGCHLD', 'SIGCLD', 'SIG_BLOCK']
+    ignore = ['SIGCHLD', 'SIGCLD']
     all_sig = [s for s in dir(signal) if s.startswith("SIG")]
     for sig_name in ignore:
         try:
@@ -57,8 +57,8 @@ class DataReader(object):
         if not self.pipe:
             try:
                 self.monout = open(filename, 'rb')
-            except Exception as e:
-                logger.error(f"Can't open source file {filename}: {e}")
+            except Exception:
+                logger.error("Can't open source file %s: %s", filename, exc_info=True)
                 self.broken = True
         else:
             self.monout = filename
