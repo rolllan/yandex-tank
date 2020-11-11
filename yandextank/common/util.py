@@ -106,7 +106,11 @@ http://uucode.com/blog/2015/02/20/workaround-for-ctr-mode-needs-counter-paramete
                 local=local_path, host=self.host, remote=remote_path))
 
         with self.connect() as client, client.open_sftp() as sftp:
-            result = sftp.put(local_path, remote_path, self.get_progress_logger(local_path))
+            try:
+                result = sftp.put(local_path, remote_path, self.get_progress_logger(local_path))
+            except Exception as e:
+                logger.error(f'Error while send file {local_path} to {remote_path}. Message: {e}')
+                raise Exception("Problems with sending file by sftp")
         return result
 
     @staticmethod
