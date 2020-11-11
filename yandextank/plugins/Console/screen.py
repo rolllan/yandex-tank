@@ -406,7 +406,7 @@ class Screen(object):
             self.log.debug("There are %d info widgets" % len(self.info_widgets))
             for index, widget in sorted(
                     self.info_widgets.items(),
-                    key=lambda item: item[1].get_index(), item[0]):
+                    key=lambda item: (item[1].get_index(), item[0])):
                 self.log.debug("Rendering info widget #%s: %s", index, widget)
                 widget_out = widget.render(self).strip()
                 if widget_out:
